@@ -5,7 +5,13 @@ import styles from '../../styles.css'
 export default class extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    fetching: PropTypes.bool
+    fetching: PropTypes.bool,
+    defaultValues: PropTypes.shape({})
+  }
+
+  static defaultProps = {
+    fetching: false,
+    defaultValues: {}
   }
 
   state = {
@@ -26,7 +32,7 @@ export default class extends Component {
 
   onSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit(this.state)
+    this.props.onSubmit({ ...this.props.defaultValues, ...this.state })
   }
 
   randomNumber = (limit = 200) => {
@@ -60,17 +66,27 @@ export default class extends Component {
       wind_speed,
       cloudiness
     } = this.state
-    const { fetching } = this.props
-
+    const { fetching, defaultValues } = this.props
+    const values = {
+      ...defaultValues,
+      temp,
+      pressure,
+      humidity,
+      visibility,
+      temp_max,
+      temp_min,
+      wind_speed,
+      cloudiness
+    }
     return (
       <form className={styles.form} onSubmit={this.onSubmit}>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Temp ({temp})</label>
+            <label>Temp ({values.temp})</label>
             <input
               type="range"
               name="temp"
-              value={temp}
+              value={values.temp}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -78,11 +94,11 @@ export default class extends Component {
             />
           </fieldset>
           <fieldset>
-            <label>Pressure ({pressure})</label>
+            <label>Pressure ({values.pressure})</label>
             <input
               type="range"
               name="pressure"
-              value={pressure}
+              value={values.pressure}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -92,11 +108,11 @@ export default class extends Component {
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Humidity ({humidity})</label>
+            <label>Humidity ({values.humidity})</label>
             <input
               type="range"
               name="humidity"
-              value={humidity}
+              value={values.humidity}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -104,11 +120,11 @@ export default class extends Component {
             />
           </fieldset>
           <fieldset>
-            <label>Visibility ({visibility})</label>
+            <label>Visibility ({values.visibility})</label>
             <input
               type="range"
               name="visibility"
-              value={visibility}
+              value={values.visibility}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -118,11 +134,11 @@ export default class extends Component {
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Temp Min ({temp_min})</label>
+            <label>Temp Min ({values.temp_min})</label>
             <input
               type="range"
               name="temp_min"
-              value={temp_min}
+              value={values.temp_min}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -130,11 +146,11 @@ export default class extends Component {
             />
           </fieldset>
           <fieldset>
-            <label>Temp Max ({temp_max})</label>
+            <label>Temp Max ({values.temp_max})</label>
             <input
               type="range"
               name="temp_max"
-              value={temp_max}
+              value={values.temp_max}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -144,11 +160,11 @@ export default class extends Component {
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Wind Speed ({wind_speed})</label>
+            <label>Wind Speed ({values.wind_speed})</label>
             <input
               type="range"
               name="wind_speed"
-              value={wind_speed}
+              value={values.wind_speed}
               onChange={this.onInputChange}
               min={-200}
               max={200}
@@ -156,11 +172,11 @@ export default class extends Component {
             />
           </fieldset>
           <fieldset>
-            <label>Cloudiness ({cloudiness})</label>
+            <label>Cloudiness ({values.cloudiness})</label>
             <input
               type="range"
               name="cloudiness"
-              value={cloudiness}
+              value={values.cloudiness}
               onChange={this.onInputChange}
               min={-200}
               max={200}

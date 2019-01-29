@@ -83,9 +83,7 @@ module.exports = () => {
         iplocation(pip || defaultGeoIP)
           .then(res => {
             setInterval(() => {
-              if (shouldWatch) {
-                fetchWeather(res.latitude, res.longitude)
-              }
+              fetchWeather(res.latitude, res.longitude)
             }, 60000)
             fetchWeather(res.latitude, res.longitude)
             socket.on('inputData', () =>
@@ -105,6 +103,12 @@ module.exports = () => {
 
     socket.on('isTrainMode', () => {
       socket.emit('isTrainMode', !shouldWatch)
+    })
+
+    socket.on('locationChange', data => {
+      if (data.lat && data.long) {
+        fetchWeather(data.lat, data.long)
+      }
     })
 
     socket.on('trainInputData', data => {

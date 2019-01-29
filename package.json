@@ -9,7 +9,7 @@
     "start:dev": "cross-env webpack --watch --mode development",
     "build": "cross-env webpack --mode production",
     "start:server": "ncross-env ode server/index.js",
-    "lint": "cross-env prettier --single-quote  --no-semi es8 --write \"{src,server}/**/*.{js,css}\""
+    "lint": "cross-env prettier --single-quote  --no-semi --write \"{src,server}/**/*.{js,css}\""
   },
   "husky": {
     "hooks": {
@@ -32,6 +32,7 @@
     "public-ip": "^3.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "react-google-maps": "^9.4.5",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0"
   },

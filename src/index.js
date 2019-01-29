@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 import styles from './styles.css'
-import { TrainingForm } from './components'
+import { TrainingForm, LiveMode } from './components'
 
 const socket = io.connect('ws://localhost:3004')
 socket.on('ping', d => console.log(d))
@@ -56,7 +56,11 @@ class App extends Component {
             />
             <label>&nbsp; Train Mode</label>
           </fieldset>
-          <TrainingForm fetching={fetching} onSubmit={this.onTrain} />
+          <LiveMode
+            trainMode={trainMode}
+            fetching={fetching}
+            onSubmit={this.onTrain}
+          />
         </div>
       </div>
     )
