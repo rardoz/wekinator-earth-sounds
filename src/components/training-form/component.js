@@ -4,7 +4,7 @@ import styles from '../../styles.css'
 
 export default class extends Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired
   }
 
   render() {

@@ -18,7 +18,7 @@ class App extends Component {
     visibility: 1000,
     wind_speed: 1,
     cloudiness: 1,
-    hexValue: '#000',
+    hexValue: '#000'
   }
 
   onMouseMove = ({ clientX, clientY }) => {

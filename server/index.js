@@ -21,7 +21,7 @@ module.exports = () => {
   app.use(
     cors({
       origin: '*',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE'
     })
   )
 
@@ -45,8 +45,8 @@ module.exports = () => {
         temp_max,
         visibility,
         windSpeed,
-        cloudiness,
-      ],
+        cloudiness
+      ]
     })
 
     return udp.send(buf, 0, buf.length, inputPort, ip)
