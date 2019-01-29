@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  font-family: Helvetica, sans-serif;
+  color: deeppink;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  background: deeppink;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  width: 100%;
+}
+
+.container {
+  padding: 15px;
+}
+
+.gutters {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+fieldset {
+  display: flex;
+  flex: 1 1 100%;
+  border: 0;
+}
+
+.inlineFieldset {
+  display: block;
+  border: 0;
+}
+
+.inlineFieldset label,
+.inlineFieldset input {
+  width: auto;
+}
+
+.fieldset label,
+.fieldset input {
+  width: 100%;
+}
+
+.flexCol {
+  display: flex;
+  justify-content: space-between;
+}
