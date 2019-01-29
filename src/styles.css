@@ -53,8 +53,8 @@ fieldset {
   width: auto;
 }
 
-.fieldset label,
-.fieldset input {
+fieldset label,
+fieldset input {
   width: 100%;
 }
 

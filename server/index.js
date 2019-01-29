@@ -103,18 +103,20 @@ module.exports = () => {
     socket.emit('ping', 'WebSocket link works')
     monitorWeather(socket)
 
-    socket.on('trainInputData', data =>
-      inputDeviceData(
-        data.temp,
-        data.pressure,
-        data.humidity,
-        data.temp_min,
-        data.temp_max,
-        data.visibility,
-        data.wind_speed,
-        data.cloudiness
+    socket.on('trainInputData', data => {
+      socket.emit('trainInputDataRecieved', true)
+      console.log(data)
+      return inputDeviceData(
+        parseFloat(data.temp),
+        parseFloat(data.pressure),
+        parseFloat(data.humidity),
+        parseFloat(data.temp_min),
+        parseFloat(data.temp_max),
+        parseFloat(data.visibility),
+        parseFloat(data.wind_speed),
+        parseFloat(data.cloudiness)
       )
-    )
+    })
 
     socket.on('trainMode', trainMode => {
       console.log('train mode is', trainMode)
