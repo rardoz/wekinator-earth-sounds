@@ -103,6 +103,10 @@ module.exports = () => {
     socket.emit('ping', 'WebSocket link works')
     monitorWeather(socket)
 
+    socket.on('isTrainMode', () => {
+      socket.emit('isTrainMode', !shouldWatch)
+    })
+
     socket.on('trainInputData', data => {
       socket.emit('trainInputDataRecieved', true)
       console.log(data)

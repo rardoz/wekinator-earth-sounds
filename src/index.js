@@ -22,6 +22,8 @@ class App extends Component {
     socket.on('trainInputDataRecieved', () => {
       this.setState({ fetching: false })
     })
+    socket.emit('isTrainMode')
+    socket.on('isTrainMode', trainMode => this.setState({ trainMode }))
   }
 
   toggleTrainMode = () => {
