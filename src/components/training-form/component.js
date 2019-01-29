@@ -54,6 +54,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
           <fieldset>
@@ -65,6 +66,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
         </div>
@@ -78,6 +80,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
           <fieldset>
@@ -89,6 +92,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
         </div>
@@ -102,6 +106,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
           <fieldset>
@@ -113,6 +118,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
         </div>
@@ -126,6 +132,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
           <fieldset>
@@ -137,6 +144,7 @@ export default class extends Component {
               onChange={this.onInputChange}
               min={-200}
               max={200}
+              step={0.1}
             />
           </fieldset>
         </div>
