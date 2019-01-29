@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import {
   withGoogleMap,
   withScriptjs,
@@ -7,6 +8,8 @@ import {
 } from 'react-google-maps'
 
 class GMap extends Component {
+  static propTypes = { onChange: PropTypes.func.isRequired }
+
   state = {
     lat: 9.026488544887544,
     long: 39.686992998548476
@@ -17,9 +20,11 @@ class GMap extends Component {
   onLocationSwitch = () => {}
 
   onMapClick = e => {
-    let latitude = e.latLng.lat()
-    let longtitude = e.latLng.lng()
-    this.setState({ lat: latitude, long: longtitude })
+    let lat = e.latLng.lat()
+    let long = e.latLng.lng()
+    this.setState({ lat: lat, long: long }, () => {
+      this.props.onChange({ lat, long })
+    })
   }
 
   render() {

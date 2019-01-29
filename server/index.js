@@ -16,6 +16,8 @@ const inputPort = 6448
 const webpagePort = 3004
 const outputPort = 12000
 let shouldWatch = true
+let currentStats = {}
+
 module.exports = () => {
   const udp = dgram.createSocket({ type: 'udp4' })
   app.use(
@@ -52,24 +54,39 @@ module.exports = () => {
     return udp.send(buf, 0, buf.length, inputPort, ip)
   }
 
-  const fetchWeather = (lat, long) => {
+  const fetchWeather = (lat, long, socket) => {
     return (
       shouldWatch &&
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=ddde11f41f06ef5c69ab12cb15595ea8`
+        `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${long}&appid=ddde11f41f06ef5c69ab12cb15595ea8`
       )
         .then(response => response.json())
         .then(response => {
           console.log(response)
+          currentStats = {
+            lat,
+            long,
+            temp: response.main.temp || 90,
+            pressure: response.main.pressure || 0,
+            humidity: response.main.humidity || 0,
+            temp_min: response.main.temp_min || 80,
+            temp_max: response.main.temp_max || 100,
+            visibility: response.visibility || 1000,
+            wind_speed: response.wind.speed || 0,
+            cloudiness: response.clouds.all || 0
+          }
+
+          socket.emit('stats', currentStats)
+
           return inputDeviceData(
-            response.main.temp,
-            response.main.pressure,
-            response.main.humidity,
-            response.main.temp_min,
-            response.main.temp_max,
-            response.visibility,
-            response.wind.speed,
-            response.clouds.all
+            currentStats.temp,
+            currentStats.pressure,
+            currentStats.humidity,
+            currentStats.temp_min,
+            currentStats.temp_max,
+            currentStats.visibility,
+            currentStats.wind_speed,
+            currentStats.cloudiness
           )
         })
         .catch(e => console.log(e))
@@ -83,11 +100,11 @@ module.exports = () => {
         iplocation(pip || defaultGeoIP)
           .then(res => {
             setInterval(() => {
-              fetchWeather(res.latitude, res.longitude)
+              fetchWeather(currentStats.lat, currentStats.long, socket)
             }, 60000)
-            fetchWeather(res.latitude, res.longitude)
+            fetchWeather(res.latitude, res.longitude, socket)
             socket.on('inputData', () =>
-              fetchWeather(res.latitude, res.longitude)
+              fetchWeather(currentStats.lat, currentStats.long, socket)
             )
           })
           .catch(err => {
@@ -107,9 +124,11 @@ module.exports = () => {
 
     socket.on('locationChange', data => {
       if (data.lat && data.long) {
-        fetchWeather(data.lat, data.long)
+        fetchWeather(data.lat, data.long, socket)
       }
     })
+
+    socket.on('getStats', () => currentStats)
 
     socket.on('trainInputData', data => {
       socket.emit('trainInputDataRecieved', true)

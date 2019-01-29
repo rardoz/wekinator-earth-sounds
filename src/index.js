@@ -11,7 +11,19 @@ class App extends Component {
   socket = null
   state = {
     trainMode: false,
-    fetching: false
+    fetching: false,
+    defaultValues: {
+      cloudiness: 1,
+      humidity: 0,
+      lat: 47.6873,
+      long: -122.377,
+      pressure: 0,
+      temp: 0,
+      temp_max: 0,
+      temp_min: 0,
+      visibility: 0,
+      wind_speed: 0
+    }
   }
 
   componentDidMount() {
@@ -24,6 +36,11 @@ class App extends Component {
     })
     socket.emit('isTrainMode')
     socket.on('isTrainMode', trainMode => this.setState({ trainMode }))
+    socket.emit('getStats')
+    socket.on('stats', data => {
+      console.log('stats are', data)
+      this.setState({ defaultValues: data })
+    })
   }
 
   toggleTrainMode = () => {
@@ -38,8 +55,12 @@ class App extends Component {
     )
   }
 
+  onLocationChange = formData => {
+    socket.emit('locationChange', formData)
+  }
+
   render() {
-    const { trainMode, fetching } = this.state
+    const { trainMode, fetching, defaultValues } = this.state
 
     return (
       <div className={styles.container}>
@@ -60,6 +81,8 @@ class App extends Component {
             trainMode={trainMode}
             fetching={fetching}
             onSubmit={this.onTrain}
+            defaultValues={defaultValues}
+            onLocationChange={this.onLocationChange}
           />
         </div>
       </div>

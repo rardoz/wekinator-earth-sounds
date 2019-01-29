@@ -14,16 +14,7 @@ export default class extends Component {
     defaultValues: {}
   }
 
-  state = {
-    temp: 0,
-    pressure: 0,
-    humidity: 0,
-    temp_min: 0,
-    temp_max: 0,
-    visibility: 0,
-    wind_speed: 0,
-    cloudiness: 0
-  }
+  state = {}
 
   onInputChange = e => {
     const { name, value } = e.target
@@ -56,130 +47,114 @@ export default class extends Component {
   }
 
   render() {
-    const {
-      temp,
-      pressure,
-      humidity,
-      visibility,
-      temp_min,
-      temp_max,
-      wind_speed,
-      cloudiness
-    } = this.state
     const { fetching, defaultValues } = this.props
     const values = {
       ...defaultValues,
-      temp,
-      pressure,
-      humidity,
-      visibility,
-      temp_max,
-      temp_min,
-      wind_speed,
-      cloudiness
+      ...this.state
     }
+
     return (
       <form className={styles.form} onSubmit={this.onSubmit}>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Temp ({values.temp})</label>
+            <label>Temp ({values.temp}˚C)</label>
             <input
               type="range"
               name="temp"
               value={values.temp}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={-90}
+              max={60}
               step={0.1}
             />
           </fieldset>
           <fieldset>
-            <label>Pressure ({values.pressure})</label>
+            <label>Pressure ({values.pressure} hPa)</label>
             <input
               type="range"
               name="pressure"
               value={values.pressure}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={800}
+              max={1100}
               step={0.1}
             />
           </fieldset>
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Humidity ({values.humidity})</label>
+            <label>Humidity ({values.humidity}%)</label>
             <input
               type="range"
               name="humidity"
               value={values.humidity}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={0}
+              max={100}
               step={0.1}
             />
           </fieldset>
           <fieldset>
-            <label>Visibility ({values.visibility})</label>
+            <label>Visibility ({values.visibility} m)</label>
             <input
               type="range"
               name="visibility"
               value={values.visibility}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={0}
+              max={18000}
               step={0.1}
             />
           </fieldset>
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Temp Min ({values.temp_min})</label>
+            <label>Temp Min ({values.temp_min}˚C)</label>
             <input
               type="range"
               name="temp_min"
               value={values.temp_min}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={-90}
+              max={60}
               step={0.1}
             />
           </fieldset>
           <fieldset>
-            <label>Temp Max ({values.temp_max})</label>
+            <label>Temp Max ({values.temp_max}˚C)</label>
             <input
               type="range"
               name="temp_max"
               value={values.temp_max}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={-90}
+              max={60}
               step={0.1}
             />
           </fieldset>
         </div>
         <div className={styles.flexCol}>
           <fieldset>
-            <label>Wind Speed ({values.wind_speed})</label>
+            <label>Wind Speed ({values.wind_speed} m/s)</label>
             <input
               type="range"
               name="wind_speed"
               value={values.wind_speed}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={0}
+              max={115}
               step={0.1}
             />
           </fieldset>
           <fieldset>
-            <label>Cloudiness ({values.cloudiness})</label>
+            <label>Cloudiness ({values.cloudiness}%)</label>
             <input
               type="range"
               name="cloudiness"
               value={values.cloudiness}
               onChange={this.onInputChange}
-              min={-200}
-              max={200}
+              min={0}
+              max={100}
               step={0.1}
             />
           </fieldset>
