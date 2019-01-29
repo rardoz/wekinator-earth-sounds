@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "precommit": "echo yay && cross-env npm run lint"
+      "precommit": "cross-env npm run lint"
     }
   },
   "repository": "",
