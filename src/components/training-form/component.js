@@ -29,6 +29,26 @@ export default class extends Component {
     this.props.onSubmit(this.state)
   }
 
+  randomNumber = (limit = 200) => {
+    const randomNumber = parseFloat(Math.random() * (limit + 1))
+    const diff = parseFloat(Math.random() * (limit + 1))
+    return (randomNumber - diff).toFixed(1)
+  }
+
+  onRandomize = e => {
+    e.preventDefault()
+    this.setState({
+      temp: this.randomNumber(),
+      pressure: this.randomNumber(),
+      humidity: this.randomNumber(),
+      visibility: this.randomNumber(),
+      temp_min: this.randomNumber(),
+      temp_max: this.randomNumber(),
+      wind_speed: this.randomNumber(),
+      cloudiness: this.randomNumber()
+    })
+  }
+
   render() {
     const {
       temp,
@@ -155,7 +175,7 @@ export default class extends Component {
             </button>
           </fieldset>
           <fieldset>
-            <button disabled={fetching} onClick={() => {}}>
+            <button disabled={fetching} onClick={this.onRandomize}>
               Random
             </button>
           </fieldset>
