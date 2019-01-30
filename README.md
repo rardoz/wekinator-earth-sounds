@@ -1,45 +1,35 @@
-# electron-quick-start
+### wekinator-earth-sounds
 
-**Clone and run for a quick way to see Electron in action.**
+An earthly experiemnt with wekinator. Build on React, Electron, NodeJS, and Socket.io.
 
-This is a minimal Electron application based on the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start) within the Electron documentation.
+### Description
 
-**Use this app along with the [Electron API Demos](https://electronjs.org/#get-started) app for API code examples to help you get started.**
+Click on the map to get the weather for that location. The weather is a set of 8 inputs. Click the train checkbox to train your model with Wekinator. Click on the midi controls to adjust the output. The output is a set of 68 values. The first 4 outputs are the midi types. There are 235 classes per channel. The Other 64 inputs have 2 inputs per channel and are the step controls. 1 is off and 2 is on.
 
-A basic Electron application needs just these files:
+### Training the model
 
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
+- Check the train box in the top right corner
+- Click `start recording` in Wekinator
+- Click on a part of the world to get the weather
+- The right sidebar will change values
+- Hit apply in the right sidebar to record the value
 
-You can learn more about each of these components within the [Quick Start Guide](https://electronjs.org/docs/tutorial/quick-start).
+### Playing in live mode
 
-## To Use
+- Uncheck the train box after you are satisfied with your model
+- Click `run`
+- Click on the earth to hear the output of your model
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+* Note tested with the `all classifiers` algo in wekinator.
 
-```bash
-# Clone this repository
-git clone https://github.com/electron/electron-quick-start
-# Go into the repository
-cd electron-quick-start
-# Install dependencies
-npm install
-# Run the app
-npm start
-```
+### Licence
 
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+[ECL-2.0 (Educational Community License, Version 2.0 )](LICENSE.md)
 
-## Resources for Learning Electron
+### TODO
 
-- [electronjs.org/docs](https://electronjs.org/docs) - all of Electron's documentation
-- [electronjs.org/community#boilerplates](https://electronjs.org/community#boilerplates) - sample starter apps created by the community
-- [electron/electron-quick-start](https://github.com/electron/electron-quick-start) - a very basic starter Electron app
-- [electron/simple-samples](https://github.com/electron/simple-samples) - small applications with ideas for taking them further
-- [electron/electron-api-demos](https://github.com/electron/electron-api-demos) - an Electron app that teaches you how to use Electron
-- [hokein/electron-sample-apps](https://github.com/hokein/electron-sample-apps) - small demo apps for the various Electron APIs
-
-## License
-
-[CC0 1.0 (Public Domain)](LICENSE.md)
+- Adjust tempo
+- Add more audo components
+- Fix windows build (long path issue)
+- Inputs are a bit clunky at times
+- Default to your location is broken

@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
+  "name": "wekinator-earth-sounds",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "An earthly experiemnt with wekinator.",
   "main": "main.js",
   "scripts": {
     "start": "cross-env electron .",
@@ -17,10 +17,15 @@
       "pre-commit": "cross-env npm run lint && cross-env git add ."
     }
   },
-  "repository": "",
-  "keywords": [],
+  "repository": "https://github.com/rardoz/wekinator-earth-sounds.git",
+  "keywords": [
+    "wekinator",
+    "react",
+    "electron",
+    "socket.io"
+  ],
   "author": "Robert Greene",
-  "license": "ISC",
+  "license": "ECL-2.0",
   "dependencies": {
     "cors": "^2.8.5",
     "dgram": "^1.0.1",
