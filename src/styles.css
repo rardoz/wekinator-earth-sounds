@@ -33,6 +33,9 @@ button {
   white-space: nowrap;
 }
 
+button[disabled] {
+  opacity: 0.5;
+}
 input[type='range'],
 button,
 input[type='submit'],

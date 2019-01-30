@@ -7,31 +7,43 @@ export default class extends Component {
     onSubmit: PropTypes.func.isRequired,
     fetching: PropTypes.bool,
     defaultValues: PropTypes.shape({}),
-    trainingMode: PropTypes.bool
+    trainMode: PropTypes.bool
   }
 
   static defaultProps = {
     fetching: false,
     defaultValues: {},
-    trainingMode: false
+    trainMode: false
   }
 
-  state = {}
+  state = {
+    pendingValues: {}
+  }
 
   onInputChange = e => {
     const { name, value } = e.target
-    const { trainingMode } = this.props
+    const { trainMode } = this.props
+    const { pendingValues } = this.state
 
-    this.setState({ [name]: value }, () => {
-      if (!trainingMode) {
-        this.props.onSubmit({ ...this.props.defaultValues, ...this.state })
+    this.setState(
+      { pendingValues: { ...pendingValues, [name]: value } },
+      () => {
+        if (!trainMode) {
+          this.props.onSubmit({
+            ...this.props.defaultValues,
+            ...this.state.pendingValues
+          })
+        }
       }
-    })
+    )
   }
 
   onSubmit = e => {
     e.preventDefault()
-    this.props.onSubmit({ ...this.props.defaultValues, ...this.state })
+    this.props.onSubmit({
+      ...this.props.defaultValues,
+      ...this.state.pendingValues
+    })
   }
 
   randomNumber = (limit = 200) => {
@@ -43,22 +55,29 @@ export default class extends Component {
   onRandomize = e => {
     e.preventDefault()
     this.setState({
-      temp: this.randomNumber(),
-      pressure: this.randomNumber(),
-      humidity: this.randomNumber(),
-      visibility: this.randomNumber(),
-      temp_min: this.randomNumber(),
-      temp_max: this.randomNumber(),
-      wind_speed: this.randomNumber(),
-      cloudiness: this.randomNumber()
+      pendingValues: {
+        temp: this.randomNumber(),
+        pressure: this.randomNumber(),
+        humidity: this.randomNumber(),
+        visibility: this.randomNumber(),
+        temp_min: this.randomNumber(),
+        temp_max: this.randomNumber(),
+        wind_speed: this.randomNumber(),
+        cloudiness: this.randomNumber()
+      }
     })
   }
 
+  onReset = e => {
+    e.preventDefault()
+    this.setState({ pendingValues: {} })
+  }
+
   render() {
-    const { fetching, defaultValues, trainingMode } = this.props
+    const { fetching, defaultValues, trainMode } = this.props
     const values = {
       ...defaultValues,
-      ...this.state
+      ...this.state.pendingValues
     }
 
     return (
@@ -179,6 +198,16 @@ export default class extends Component {
           <fieldset>
             <button disabled={fetching} onClick={this.onRandomize}>
               Random
+            </button>
+          </fieldset>
+          <fieldset>
+            <button
+              disabled={
+                fetching || !Object.keys(this.state.pendingValues).length > 0
+              }
+              onClick={this.onReset}
+            >
+              Unset Values
             </button>
           </fieldset>
         </div>

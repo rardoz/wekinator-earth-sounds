@@ -12,13 +12,16 @@ export default class extends Component {
     fetching: PropTypes.bool,
     defaultValues: PropTypes.shape({}),
     onLocationChange: PropTypes.func.isRequired,
-    trainingMode: PropTypes.bool
+    trainMode: PropTypes.bool,
+    onOutputChange: PropTypes.func.isRequired,
+    midiValues: PropTypes.shape({})
   }
 
   static defaultProps = {
     fetching: false,
     defaultValues: {},
-    trainingMode: false
+    trainMode: false,
+    midiValues: {}
   }
 
   render() {
@@ -27,13 +30,19 @@ export default class extends Component {
       onSubmit,
       defaultValues,
       onLocationChange,
-      trainingMode
+      trainMode,
+      onOutputChange,
+      midiValues
     } = this.props
 
     return (
       <div>
         <div className={styles.gutters}>
-          <h2>Click on the map to receive weather</h2>
+          <h2>
+            {trainMode
+              ? 'Adjust slider inputs or click the map'
+              : 'Click on the map to receive weather'}
+          </h2>
           <Map onChange={onLocationChange} isMarkerShown={true} />
           <p>
             <strong>
@@ -45,7 +54,7 @@ export default class extends Component {
             </strong>
           </p>
         </div>
-        <Looper />
+        <Looper midiValues={midiValues} onChange={onOutputChange} />
       </div>
     )
   }

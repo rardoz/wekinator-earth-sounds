@@ -23,12 +23,14 @@ class App extends Component {
       temp_min: 0,
       visibility: 0,
       wind_speed: 0
-    }
+    },
+    midiValues: {}
   }
 
   componentDidMount() {
     socket.on('outputData', data => {
-      console.log('todo wire up output data', data)
+      console.log('OUTPUT RECIEVED', data)
+      this.setState({ midiValues: data })
     })
 
     socket.on('trainInputDataRecieved', () => {
@@ -41,6 +43,10 @@ class App extends Component {
       console.log('stats are', data)
       this.setState({ defaultValues: data })
     })
+  }
+
+  onOutputChange = formData => {
+    socket.emit('updateOutput', formData)
   }
 
   toggleTrainMode = () => {
@@ -60,7 +66,7 @@ class App extends Component {
   }
 
   render() {
-    const { trainMode, fetching, defaultValues } = this.state
+    const { trainMode, fetching, defaultValues, midiValues } = this.state
 
     return (
       <div className={styles.sidebarContainer}>
@@ -75,6 +81,8 @@ class App extends Component {
               onSubmit={this.onTrain}
               defaultValues={defaultValues}
               onLocationChange={this.onLocationChange}
+              onOutputChange={this.onOutputChange}
+              midiValues={midiValues}
             />
           </div>
         </div>

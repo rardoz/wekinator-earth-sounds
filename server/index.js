@@ -15,7 +15,7 @@ const defaultLong = -122.201
 const inputPort = 6448
 const webpagePort = 3004
 const outputPort = 12000
-let shouldWatch = true
+let shouldTrain = true
 let currentStats = {}
 
 module.exports = () => {
@@ -54,9 +54,9 @@ module.exports = () => {
     return udp.send(buf, 0, buf.length, inputPort, ip)
   }
 
-  const fetchWeather = (lat, long, socket) => {
+  const fetchWeather = (lat, long, socket, awaitInput) => {
     return (
-      shouldWatch &&
+      //shouldWatch &&
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${long}&appid=ddde11f41f06ef5c69ab12cb15595ea8`
       )
@@ -78,15 +78,18 @@ module.exports = () => {
 
           socket.emit('stats', currentStats)
 
-          return inputDeviceData(
-            currentStats.temp,
-            currentStats.pressure,
-            currentStats.humidity,
-            currentStats.temp_min,
-            currentStats.temp_max,
-            currentStats.visibility,
-            currentStats.wind_speed,
-            currentStats.cloudiness
+          return (
+            !awaitInput &&
+            inputDeviceData(
+              currentStats.temp,
+              currentStats.pressure,
+              currentStats.humidity,
+              currentStats.temp_min,
+              currentStats.temp_max,
+              currentStats.visibility,
+              currentStats.wind_speed,
+              currentStats.cloudiness
+            )
           )
         })
         .catch(e => console.log(e))
@@ -99,9 +102,9 @@ module.exports = () => {
       .then(pip => {
         iplocation(pip || defaultGeoIP)
           .then(res => {
-            setInterval(() => {
-              fetchWeather(currentStats.lat, currentStats.long, socket)
-            }, 60000)
+            // setInterval(() => {
+            //   fetchWeather(currentStats.lat, currentStats.long, socket)
+            // }, 60000)
             fetchWeather(res.latitude, res.longitude, socket)
             socket.on('inputData', () =>
               fetchWeather(currentStats.lat, currentStats.long, socket)
@@ -119,12 +122,12 @@ module.exports = () => {
     monitorWeather(socket)
 
     socket.on('isTrainMode', () => {
-      socket.emit('isTrainMode', !shouldWatch)
+      socket.emit('isTrainMode', shouldTrain)
     })
 
     socket.on('locationChange', data => {
       if (data.lat && data.long) {
-        fetchWeather(data.lat, data.long, socket)
+        fetchWeather(data.lat, data.long, socket, shouldTrain)
       }
     })
 
@@ -147,7 +150,7 @@ module.exports = () => {
 
     socket.on('trainMode', trainMode => {
       console.log('train mode is', trainMode)
-      shouldWatch = !trainMode
+      shouldTrain = trainMode
     })
 
     const sock = dgram.createSocket(
@@ -155,17 +158,47 @@ module.exports = () => {
       (msg, rinfo) => {
         try {
           const oscmsg = osc.fromBuffer(msg)
-          const seed = oscmsg.args.map(({ value }) => value).join('')
-          oscmsg.hexValue = `#${Math.floor(
-            Math.abs(Math.sin(seed) * 16777215) % 16777215
-          ).toString(16)}`
-          console.log(oscmsg)
-          socket.emit('outputData', oscmsg)
+          const formattedValues = {}
+          oscmsg.args.forEach(({ value }, index) => {
+            switch (index) {
+              case 0:
+                formattedValues.midi_type_1 = value
+                break
+              case 1:
+                formattedValues.midi_type_2 = value
+                break
+              case 2:
+                formattedValues.midi_type_3 = value
+                break
+              case 3:
+                formattedValues.midi_type_4 = value
+                break
+              default:
+                formattedValues[`input_${index - 3}`] =
+                  value === 2 ? true : false
+            }
+          })
+          console.log(formattedValues)
+          socket.emit('outputData', formattedValues)
+          socket.broadcast.emit('outputData', formattedValues)
         } catch (e) {
           return console.log('invalid OSC packet', e)
         }
       }
     )
+
+    socket.on('updateOutput', data => {
+      console.log('updating output')
+      if (data) {
+        console.log(data.length, data)
+        const buf = osc.toBuffer({
+          address: '/wekinator/control/outputs',
+          args: data.map(d => parseFloat(d))
+        })
+
+        udp.send(buf, 0, buf.length, inputPort, ip)
+      }
+    })
 
     sock.bind(outputPort)
   })
