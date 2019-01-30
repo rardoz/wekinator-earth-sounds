@@ -33,3 +33,4 @@ Click on the map to get the weather for that location. The weather is a set of 8
 - Fix windows build (long path issue)
 - Inputs are a bit clunky at times
 - Default to your location is broken
+- Add dot env to add your own google api and weather keys
