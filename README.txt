@@ -1,6 +1,6 @@
 ### wekinator-earth-sounds
 
-An earthly experiemnt with wekinator. Build on React, Electron, NodeJS, and Socket.io. Use the `all classifiers` algo in Wekinator to output a beat based on 8 weather based input features. Using the KNN model for each output makes the most sense for this. I wanted to gracefully create beats for untrained areas of the map and not have the model be picky.
+An earthly experiment with wekinator. Build on React, Electron, NodeJS, and Socket.io. Use the `all classifiers` algo in Wekinator to output a beat based on 8 weather based input features. Using the KNN model for each output makes the most sense for this. I wanted to gracefully create beats for untrained areas of the map and not have the model be picky.
 
 ### Description
 
@@ -23,7 +23,7 @@ The input data is determined by clicking on the map. The map sends the longitude
 
 ### Outputs for Wekinator
 
-There are 68 outputs genernerated from the midi controls.
+There are 68 outputs generated from the midi controls.
 
 1. output 1 - 235 classes that chooses the type of instrument to play for the first row of midi controls.
 2. output 2 - 235 classes that chooses the type of instrument to play for the first row of midi controls.
