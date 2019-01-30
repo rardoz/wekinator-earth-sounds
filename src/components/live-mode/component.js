@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Map } from '../map'
 import { TrainingForm } from '../training-form'
+import { Looper } from '../looper'
 import styles from '../../styles.css'
 
 export default class extends Component {
@@ -10,16 +11,24 @@ export default class extends Component {
     onSubmit: PropTypes.func.isRequired,
     fetching: PropTypes.bool,
     defaultValues: PropTypes.shape({}),
-    onLocationChange: PropTypes.func.isRequired
+    onLocationChange: PropTypes.func.isRequired,
+    trainingMode: PropTypes.bool
   }
 
   static defaultProps = {
     fetching: false,
-    defaultValues: {}
+    defaultValues: {},
+    trainingMode: false
   }
 
   render() {
-    const { fetching, onSubmit, defaultValues, onLocationChange } = this.props
+    const {
+      fetching,
+      onSubmit,
+      defaultValues,
+      onLocationChange,
+      trainingMode
+    } = this.props
 
     return (
       <div>
@@ -35,13 +44,8 @@ export default class extends Component {
               </small>
             </strong>
           </p>
-          <h3>Weather values</h3>
         </div>
-        <TrainingForm
-          defaultValues={defaultValues}
-          onSubmit={onSubmit}
-          fetching={fetching}
-        />
+        <Looper />
       </div>
     )
   }

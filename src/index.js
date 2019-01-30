@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
 import styles from './styles.css'
-import { TrainingForm, LiveMode } from './components'
+import { LiveMode, TrainingForm, Sidebar } from './components'
 
 const socket = io.connect('ws://localhost:3004')
 socket.on('ping', d => console.log(d))
@@ -63,28 +63,42 @@ class App extends Component {
     const { trainMode, fetching, defaultValues } = this.state
 
     return (
-      <div className={styles.container}>
-        <h1 className={styles.gutters}>
-          {trainMode ? 'Training Mode' : 'Live Mode'}
-        </h1>
-        <div>
-          <fieldset className={styles.inlineFieldset}>
-            <input
-              value="true"
-              checked={trainMode}
-              type="checkbox"
-              onChange={this.toggleTrainMode}
+      <div className={styles.sidebarContainer}>
+        <div className={styles.container}>
+          <h1 className={styles.gutters}>
+            {trainMode ? 'Training Mode' : 'Live Mode'}
+          </h1>
+          <div>
+            <LiveMode
+              trainMode={trainMode}
+              fetching={fetching}
+              onSubmit={this.onTrain}
+              defaultValues={defaultValues}
+              onLocationChange={this.onLocationChange}
             />
-            <label>&nbsp; Train Mode</label>
-          </fieldset>
-          <LiveMode
-            trainMode={trainMode}
+          </div>
+        </div>
+        <Sidebar>
+          <div>
+            <br />
+            <fieldset className={styles.inlineFieldset}>
+              <input
+                value="true"
+                checked={trainMode}
+                type="checkbox"
+                onChange={this.toggleTrainMode}
+              />
+              <label>&nbsp; Train Mode</label>
+            </fieldset>
+            <hr />
+          </div>
+          <TrainingForm
+            defaultValues={defaultValues}
             fetching={fetching}
             onSubmit={this.onTrain}
-            defaultValues={defaultValues}
-            onLocationChange={this.onLocationChange}
+            trainMode={trainMode}
           />
-        </div>
+        </Sidebar>
       </div>
     )
   }

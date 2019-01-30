@@ -6,19 +6,27 @@ export default class extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     fetching: PropTypes.bool,
-    defaultValues: PropTypes.shape({})
+    defaultValues: PropTypes.shape({}),
+    trainingMode: PropTypes.bool
   }
 
   static defaultProps = {
     fetching: false,
-    defaultValues: {}
+    defaultValues: {},
+    trainingMode: false
   }
 
   state = {}
 
   onInputChange = e => {
     const { name, value } = e.target
-    this.setState({ [name]: value })
+    const { trainingMode } = this.props
+
+    this.setState({ [name]: value }, () => {
+      if (!trainingMode) {
+        this.props.onSubmit({ ...this.props.defaultValues, ...this.state })
+      }
+    })
   }
 
   onSubmit = e => {
@@ -47,7 +55,7 @@ export default class extends Component {
   }
 
   render() {
-    const { fetching, defaultValues } = this.props
+    const { fetching, defaultValues, trainingMode } = this.props
     const values = {
       ...defaultValues,
       ...this.state
@@ -55,6 +63,9 @@ export default class extends Component {
 
     return (
       <form className={styles.form} onSubmit={this.onSubmit}>
+        <div className={styles.flexCol}>
+          <h3 className={styles.gutters}>Weather Input</h3>
+        </div>
         <div className={styles.flexCol}>
           <fieldset>
             <label>Temp ({values.temp}˚C)</label>
