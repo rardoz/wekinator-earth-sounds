@@ -10,7 +10,7 @@
     "build": "cross-env webpack --mode production",
     "start:server": "cross-env node server/index.js",
     "lint": "cross-env prettier --single-quote  --no-semi --write \"{src,server}/**/*.{js,css}\"",
-    "package": "npm run build && cross-env electron-packager . --ignore='(package-lock.json|dist/builds|webpack.config.js|node_modules|src|vscode|package.json|.babelrc|.gitignore)' --out=./dist/builds Wekinator_Earth_Sounds_8_Inputs_68_Outputs --all"
+    "package": "npm run build && cross-env electron-packager . --overwrite --ignore-off='(package-lock.json|.vscode|.gitignore|webpack.config.js|src|node_modules|.babelrc|icons)' --out=./builds Wekinator_Earth_Sounds_8_Inputs_68_Outputs --all --icon=icons/icon"
   },
   "husky": {
     "hooks": {
@@ -28,6 +28,7 @@
   "license": "ECL-2.0",
   "dependencies": {
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "dgram": "^1.0.1",
     "express": "^4.16.4",
     "iplocation": "^6.1.0",
@@ -57,7 +58,6 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
     "electron": "^4.0.2",
     "electron-packager": "^13.0.1",
