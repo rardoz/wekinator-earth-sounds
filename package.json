@@ -8,9 +8,9 @@
     "test": "cross-env echo no tests",
     "start:dev": "cross-env webpack --watch --mode development",
     "build": "cross-env webpack --mode production",
-    "start:server": "ncross-env ode server/index.js",
+    "start:server": "cross-env node server/index.js",
     "lint": "cross-env prettier --single-quote  --no-semi --write \"{src,server}/**/*.{js,css}\"",
-    "package": "npm run build && electron-packager . --out=./dist Wekinator_Earth_Sounds_8_Inputs_68_Outputs --all"
+    "package": "npm run build && cross-env electron-packager . --ignore='(package-lock.json|dist/builds|webpack.config.js|node_modules|src|vscode|package.json|.babelrc|.gitignore)' --out=./dist/builds Wekinator_Earth_Sounds_8_Inputs_68_Outputs --all"
   },
   "husky": {
     "hooks": {
