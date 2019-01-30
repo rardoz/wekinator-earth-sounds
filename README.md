@@ -8,6 +8,11 @@ Click on the map to get the weather for that location. The weather is a set of 8
 
 ![alt text](/icons/app-screenshot.png 'Working model')
 
+### Dev Requirements
+
+- NodeJS 8.9.4 or greater
+- Wekinator
+
 ### Training the model
 
 - Check the train box in the top right corner
@@ -27,6 +32,11 @@ Click on the map to get the weather for that location. The weather is a set of 8
 * Note tested with the `all classifiers` algo in wekinator.
 
 ![alt text](/icons/setup.png 'setup model')
+
+### Starting the app
+
+- You can build the packages for each OS by running `npm run package`
+- If you want to run develpment mode run `npm run start` to start the electron app and run `npm run start:dev` to start the webpack packager. You need to have both running to start the app.
 
 ### Licence
 
