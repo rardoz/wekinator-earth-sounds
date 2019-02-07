@@ -59,10 +59,19 @@ There are 68 outputs generated from the midi controls.
 
 ![alt text](/icons/setup.png 'setup model')
 
-### Starting the app
+### Starting the app for dev mode
+
+Before you try to start the app you must have a [Google API](https://developers.google.com/maps/documentation/javascript/get-api-key) key and an [Open Weather Maps API](https://openweathermap.org/appid) key set in the `/configs/.env` file.
+
+- Install the app `npm i`
+- Build the app by running `npm run start:dev`
+- Start the app by running `npm run start`
+
+Note: You need to have both commands running to start the app.
+
+### Building a compiled packages per OS
 
 - You can build the packages for each OS by running `npm run package`
-- If you want to run develpment mode run `npm run start` to start the electron app and run `npm run start:dev` to start the webpack packager. You need to have both running to start the app.
 
 ### Challenges
 
