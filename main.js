@@ -1,4 +1,5 @@
 // Modules to control application life and create native browser window
+require('./env')
 const { app, BrowserWindow } = require('electron')
 const server = require('./server')
 // Keep a global reference of the window object, if you don't, the window will

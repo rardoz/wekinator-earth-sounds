@@ -1,3 +1,4 @@
+require('../env')
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
@@ -8,13 +9,12 @@ const dgram = require('dgram')
 const fetch = require('node-fetch')
 const iplocation = require('iplocation').default
 const publicIp = require('public-ip')
-const ip = '127.0.0.1'
-const defaultGeoIP = '66.237.248.0'
-const defaultLat = 47.6104
-const defaultLong = -122.201
-const inputPort = 6448
-const webpagePort = 3004
-const outputPort = 12000
+const ip = process.env.LOCALHOST_IP || '127.0.0.1'
+const defaultGeoIP = process.env.DEFAULT_GEO_IP || '66.237.248.0'
+const inputPort = process.env.INPUT_PORT || 6448
+const webpagePort = process.env.APP_PORT || 3004
+const outputPort = process.env.OUTPUT_PORT || 12000
+const openWeaherMapKey = process.env.OPEN_WEATHER_API_KEY
 let shouldTrain = true
 let currentStats = {}
 
@@ -58,7 +58,7 @@ module.exports = () => {
     return (
       //shouldWatch &&
       fetch(
-        `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${long}&appid=ddde11f41f06ef5c69ab12cb15595ea8`
+        `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${long}&appid=${openWeaherMapKey}`
       )
         .then(response => response.json())
         .then(response => {
@@ -102,9 +102,6 @@ module.exports = () => {
       .then(pip => {
         iplocation(pip || defaultGeoIP)
           .then(res => {
-            // setInterval(() => {
-            //   fetchWeather(currentStats.lat, currentStats.long, socket)
-            // }, 60000)
             fetchWeather(res.latitude, res.longitude, socket)
             socket.on('inputData', () =>
               fetchWeather(currentStats.lat, currentStats.long, socket)
