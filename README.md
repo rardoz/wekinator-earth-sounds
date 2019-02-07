@@ -63,7 +63,7 @@ There are 68 outputs generated from the midi controls.
 
 ### Starting the app for dev mode
 
-Before you try to start the app you must have a [Google API](https://developers.google.com/maps/documentation/javascript/get-api-key) key and an [Open Weather Maps API](https://openweathermap.org/appid) key set in the `/configs/.env` file.
+Before you try to start the app you must have a [Google API](https://developers.google.com/maps/documentation/javascript/get-api-key) key and an [Open Weather Maps API](https://openweathermap.org/appid) key set in the `/env/.env` file.
 
 - Install the app `npm i`
 - Build the app by running `npm run start:dev`
