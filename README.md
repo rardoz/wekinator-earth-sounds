@@ -84,4 +84,4 @@ In the future I hope that wekinator would allow for us to be able to add and rem
 - Inputs are a bit clunky at times
 - Default to your location is broken
 - Add dot env to add your own google api and weather keys
-- Make repository public once keys are not exposed
+- Allow for google map and weather api keys to be changed
