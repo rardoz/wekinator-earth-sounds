@@ -1,10 +1,12 @@
-### wekinator-earth-sounds
+### Wekinator Earth Sounds
 
-An earthly experiment with wekinator. Build on React, Electron, NodeJS, and Socket.io. Use the `all classifiers` algo in Wekinator to output a beat based on 8 weather based input features. Using the KNN model for each output makes the most sense for this. I wanted to gracefully create beats for untrained areas of the map and not have the model be picky.
+An earthly experiment with wekinator. Build on React, Electron, NodeJS, and Socket.io. Use the `all classifiers` algo in Wekinator to output a beat based on 8 weather based input features. Using the K-NN model for each output makes the most sense for this. I wanted to gracefully create beats for untrained areas of the map.
 
 ### Description
 
-Click on the map to get the weather for that location. The weather is a set of 8 inputs. Click the train checkbox to train your model with Wekinator. Click on the midi controls to adjust the output. The output is a set of 68 values. The first 4 outputs are the midi types. There are 235 classes per channel. The Other 64 inputs have 2 classes per input and are the step controls. 1 is off and 2 is on.
+Click on the map to get the weather for that location. The weather is a set of 8 inputs. Click the train checkbox to train your model with Wekinator. Click on the midi controls to adjust the output. The output is a set of 68 values. The first 4 outputs are the midi types. There are 235 classes per channel. The other 64 inputs have 2 classes per input and are the step controls. 1 is off and 2 is on.
+
+There are binary versions of this under the [release tab](https://github.com/rardoz/wekinator-earth-sounds/releases) in github so you don't have to go through the hassle of development mode. This includes a wekinator project that is already trained.
 
 ![alt text](/icons/app-screenshot.png 'Working model')
 
@@ -91,6 +93,3 @@ In the future I hope that wekinator would allow for us to be able to add and rem
 - Add more audo components
 - Fix windows build (long path issue)
 - Inputs are a bit clunky at times
-- Default to your location is broken
-- Add dot env to add your own google api and weather keys
-- Allow for google map and weather api keys to be changed
