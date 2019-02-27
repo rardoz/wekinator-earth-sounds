@@ -81,7 +81,7 @@ Getting the weather data and the map data is expensive. I added in rate limits s
 
 ### Wekinator improvements
 
-In the future I hope that wekinator would allow for us to be able to add and remove outputs on the fly insteaad of having to create a new project.
+In the future I hope that wekinator would allow for us to be able to add and remove outputs on the fly instead of having to create a new project.
 
 ### Licence
 
@@ -90,6 +90,6 @@ In the future I hope that wekinator would allow for us to be able to add and rem
 ### TODO
 
 - Adjust tempo
-- Add more audo components
+- Add more audio components
 - Fix windows build (long path issue)
 - Inputs are a bit clunky at times
